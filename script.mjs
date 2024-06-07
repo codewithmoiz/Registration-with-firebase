@@ -1,5 +1,5 @@
 import { app, db } from "./Firebase.mjs";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const docRef = await addDoc(collection(db, "users"), user);
                 setTimeout(()=>{
                     window.location.href = 'login.html';
-                },2000)
+                },1500)
                 console.log("Document written with ID: ", docRef.id);
             } catch (e) {
                 console.error("Error adding document: ", e);
@@ -121,13 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(async (userCredential) => {
                     const user = userCredential.user;
                     document.querySelector('#login-error-message').textContent = "Successfully Logged in"
+                    setTimeout(()=>{
+                        window.location.href = 'data.html';
+                    },1500)
                     console.log(user);
-
-                    // Retrieve data from Firestore after successful login
-                    const querySnapshot = await getDocs(collection(db, "users"));
-                    querySnapshot.forEach((doc) => {
-                      console.log(`${doc.id} =>`, doc.data());
-                    });
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -138,3 +135,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+export async function fetchData() {
+    const tableBody = document.querySelector('#table-body');
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+                <td>${data.name}</td>
+                <td>${data.email}</td>
+                <td>${data.password}</td>
+                <td>${data.bio}</td>
+                <td>${data.age}</td>
+                <td>${data.interests.join(', ')}</td>
+                <td><Button id="edit-btn">Edit</Button></td>
+                <td><Button id="delete-btn">Delete</Button></td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error fetching data: ", error);
+    }
+}
+
+// Call fetchData when the data.html is loaded
+if (window.location.pathname.endsWith('data.html')) {
+    document.addEventListener('DOMContentLoaded', fetchData);
+}
