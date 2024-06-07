@@ -152,8 +152,8 @@ export async function fetchData() {
                 <td>${data.bio}</td>
                 <td>${data.age}</td>
                 <td>${data.interests.join(', ')}</td>
-                <td><Button id="edit-btn">Edit</Button></td>
-                <td><Button id="delete-btn">Delete</Button></td>
+                <td><Button id="edit-btn"><span>Edit</span></Button></td>
+                <td><Button id="delete-btn"><span>Delete</span></Button></td>
             `;
 
             tableBody.appendChild(row);
