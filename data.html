@@ -76,12 +76,12 @@
     position: relative;
     transition: all ease 0.4s;
 }
-button span{
-    position: relative;
+/* button span{
+    position: relative !important;
     transition: all ease 0.4s;
-    z-index: 50;
-}
-table tbody button::after{
+    z-index: 999 !important;
+} */
+/* table tbody button::after{
     content: "";
     height: 100%;
     width: 100%;
@@ -90,14 +90,19 @@ table tbody button::after{
     top: 100%;
     transition: all ease 0.4s;
     left: 100%;
-}
-table tbody button:hover::after{
+    z-index: 5 !important;
+} */
+/* table tbody button:hover::after{
     top: 0%;
     left: 0%;
     transform: scale(2);
-}
+} */
 table tbody button:active{
     transform: scale(0.9);
+}
+tbody tr{
+    /* background-color: rgb(197, 94, 94); */
+    transition: background ease 0.2s;
 }
     </style>
 </head>
@@ -112,6 +117,7 @@ table tbody button:active{
     <table>
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Password</th>
