@@ -382,6 +382,8 @@ export async function fetchData() {
     }
 }
 
+
+
 function addDeleteEventListeners() {
     let deletes = document.querySelectorAll('button.delete');
     deletes.forEach((del) => {

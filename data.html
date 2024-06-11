@@ -5,32 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             color: #fff;
             font-family: Arial, Helvetica, sans-serif;
         }
-        html,body{
+        html, body {
             height: 100%;
             width: 100%;
         }
-        body{
+        body {
             background-color: rgb(6, 17, 33);
-            }
-
-            main{
+        }
+        main {
             background: radial-gradient(45.87% 50% at 50% 50%, #3763C1 0%, rgba(35, 70, 157, 0.5) 38.39%, rgba(20, 43, 114, 0) 100%);
             width: 100%;
             height: 80vh;
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
         }
-        header{
-            /* background-color: #3763C1; */
+        header {
             height: 15vh;
             display: flex;
             align-items: center;
@@ -38,10 +36,10 @@
             flex-direction: column;
             text-align: center;
         }
-        header h1{
+        header h1 {
             font-size: 50px;
         }
-        header p{
+        header p {
             font-size: 20px;
             font-weight: 400;
         }
@@ -49,61 +47,99 @@
             border-collapse: collapse;
             width: 85%;
             text-align: left;
-            /* font-weight: 400 ; */
-            /* background: skyblue; */
         }
-        table tbody tr{
-            margin: 50px 0;
-        }
-        table th, table td{
-            padding: 5px 10px;
-        }
-        table,td,tr,th{
+        table th, table td {
+            padding: 10px;
             border: 2px solid #ffffff18;
         }
-        table tbody td{
-           text-shadow: 0px 0px 10px rgb(6, 17, 33) !important;
+        table tbody td {
+            text-shadow: 0px 0px 10px rgb(6, 17, 33) !important;
         }
         table tbody button {
-    border: none;
-    outline: none;
-    color: #fff;
-    background-color: rgba(35, 70, 157, 0.5);
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-    transition: all ease 0.4s;
-}
-/* button span{
-    position: relative !important;
-    transition: all ease 0.4s;
-    z-index: 999 !important;
-} */
-/* table tbody button::after{
-    content: "";
-    height: 100%;
-    width: 100%;
-    background-color: rgb(11, 33, 65);
-    position: absolute;
-    top: 100%;
-    transition: all ease 0.4s;
-    left: 100%;
-    z-index: 5 !important;
-} */
-/* table tbody button:hover::after{
-    top: 0%;
-    left: 0%;
-    transform: scale(2);
-} */
-table tbody button:active{
-    transform: scale(0.9);
-}
-tbody tr{
-    /* background-color: rgb(197, 94, 94); */
-    transition: background ease 0.2s;
-}
+            border: none;
+            outline: none;
+            color: #fff;
+            background-color: rgba(35, 70, 157, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all ease 0.4s;
+        }
+        table tbody button:active {
+            transform: scale(0.9);
+        }
+        tbody tr {
+            transition: background ease 0.2s;
+        }
+        .update-popup {
+            display: none; /* Hidden by default */
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .update-popup .popup {
+            width: 30%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+        .update-popup label, .update-popup input, .update-popup textarea, .update-popup select {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .update-popup input[type="text"], 
+        .update-popup input[type="email"], 
+        .update-popup input[type="password"], 
+        .update-popup textarea, 
+        .update-popup select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            color: #000 !important;
+        }
+        select option{
+            color: #000;
+        }
+        .update-popup input[type="radio"],
+        .update-popup input[type="checkbox"] {
+            cursor: pointer;
+        }
+        .update-popup input[type="radio"] + label,
+        .update-popup input[type="checkbox"] + label {
+            display: inline-block;
+            margin-right: 15px;
+            line-height: 1.5;
+        }
+        .update-popup button {
+            background-color: #3763C1;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        .update-popup button:hover {
+            background-color: #2c4f9c;
+        }
+        label, input, textarea, select, optgroup, option {
+            color: #000;
+        }
+        #error {
+            color: red;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -114,25 +150,83 @@ tbody tr{
   </header>
 
     <main>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Bio</th>
-                <th>Age</th>
-                <th>Interest</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody id="table-body">
-        
-        </tbody>
-    </table>
-</main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Bio</th>
+                    <th>Age</th>
+                    <th>Interest</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+    </main>
+
+    <div class="update-popup" id="update-popup">
+        <div class="popup">
+            <label for="name">Name:</label>
+            <input type="text" class="name" name="user_name" required>
+            
+            <label for="mail">Email:</label>
+            <input type="email" class="mail" name="user_email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" class="password" name="user_password" required>
+            
+            <label>Age:</label>
+            <div>
+                <input type="radio" class="under_18" value="under_18" name="user_age" id="under_18" required><label for="under_18" class="light">Under 18</label>
+                <input type="radio" class="over_18" value="over_18" name="user_age" id="over_18" required><label for="over_18" class="light">18 or older</label>
+            </div>
+            
+            <label for="bio">Biography:</label>
+            <textarea class="bio" name="user_bio" required></textarea>
+
+            <label for="job">Job Role:</label>
+            <select class="job" name="user_job" required>
+                <optgroup label="Web">
+                    <option value="frontend_developer">Front-End Developer</option>
+                    <option value="php_developer">PHP Developer</option>
+                    <option value="python_developer">Python Developer</option>
+                    <option value="rails_developer">Rails Developer</option>
+                    <option value="web_designer">Web Designer</option>
+                    <
+                    <option value="WordPress_developer">WordPress Developer</option>
+                </optgroup>
+                <optgroup label="Mobile">
+                    <option value="Android_developer">Android Developer</option>
+                    <option value="iOS_developer">iOS Developer</option>
+                    <option value="mobile_designer">Mobile Designer</option>
+                </optgroup>
+                <optgroup label="Business">
+                    <option value="business_owner">Business Owner</option>
+                    <option value="freelancer">Freelancer</option>
+                </optgroup>
+                <optgroup label="Other">
+                    <option value="secretary">Secretary</option>
+                    <option value="maintenance">Maintenance</option>
+                </optgroup>
+            </select>
+            
+            <label>Interests:</label>
+            <div>
+                <input type="checkbox" class="development" value="development" name="user_interest" id="development"><label class="light" for="development">Development</label>
+                <input type="checkbox" class="design" value="design" name="user_interest" id="design"><label class="light" for="design">Design</label>
+                <input type="checkbox" class="business" value="business" name="user_interest" id="business"><label class="light" for="business">Business</label>
+            </div>
+
+            <div id="error"></div>
+            <button id="update" type="submit">Update</button>
+        </div>
+    </div>
+
     <script type="module" src="script.mjs"></script>
 </body>
 </html>
