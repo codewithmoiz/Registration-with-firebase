@@ -376,6 +376,8 @@ export async function fetchData() {
 
         // Add event listeners for delete buttons
         addDeleteEventListeners();
+        editData();
+        getEditDataFromInput();
 
     } catch (error) {
         console.error("Error fetching data: ", error);
@@ -399,6 +401,84 @@ function addDeleteEventListeners() {
     });
 }
 
+function editData() {
+        let editButtons = document.querySelectorAll('.edit');
+        let popup = document.querySelector('.update-popup');
+        let popupContent = document.querySelector('.update-popup .popup');
+
+        editButtons.forEach((editBtn) => {
+            editBtn.addEventListener('click', function() {
+                popup.style.display = 'flex';
+                console.log("Edit Button Clicked...");
+            });
+        });
+
+        window.addEventListener('click', function(event) {
+            if (popup.style.display === 'flex' && !popupContent.contains(event.target) && !event.target.classList.contains('edit')) {
+                popup.style.display = 'none';
+            }
+    }
+);
+}
+
+
+
+
+function getEditDataFromInput() {
+    let updateBtn = document.querySelector('#update-btn');
+    let errorDiv = document.querySelector('#error');
+
+    updateBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        errorDiv.textContent = '';
+
+        let name = document.querySelector('.name').value.trim();
+        let email = document.querySelector('.mail').value.trim();
+        let password = document.querySelector('.password').value.trim();
+        let age = document.querySelector('input[name="user_age"]:checked') ? document.querySelector('input[name="user_age"]:checked').value : '';
+        let bio = document.querySelector('.bio').value.trim();
+        let job = document.querySelector('.job').value;
+        let interests = Array.from(document.querySelectorAll('input[name="user_interest"]:checked')).map(checkbox => checkbox.value);
+
+        let hasErrors = false;
+
+        // Name validation
+        if (name && name.length < 3) {
+            errorDiv.textContent += 'Name must be at least 3 characters long.\n';
+            hasErrors = true;
+        }
+
+        // Email validation
+        if (email && !email.includes('@')) {
+            errorDiv.textContent += 'Email must contain @.\n';
+            hasErrors = true;
+        }
+
+        // Password validation
+        if (password && password.length < 8) {
+            errorDiv.textContent += 'Password must be at least 8 characters long.\n';
+            hasErrors = true;
+        }
+
+        if (hasErrors) {
+            return;
+        }
+
+        let updateData = [
+            {}
+        ]
+
+        if (name) updateData.name = name;
+        if (email) updateData.email = email;
+        if (password) updateData.password = password;
+        if (age) updateData.age = age;
+        if (bio) updateData.bio = bio;
+        if (job) updateData.job = job;
+        if (interests.length > 0) updateData.interests = interests.join(', ');
+        console.log(updateData);
+    });
+}
+
 async function deleteUser(id, row) {
     try {
         await deleteDoc(doc(db, "All-users", id));
@@ -409,7 +489,6 @@ async function deleteUser(id, row) {
     }
 }
 
-// Call fetchData when the data.html is loaded
 if (window.location.pathname.endsWith('data.html')) {
     document.addEventListener('DOMContentLoaded', fetchData);
 }

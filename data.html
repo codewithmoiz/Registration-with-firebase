@@ -72,11 +72,11 @@
             transition: background ease 0.2s;
         }
         .update-popup {
-            display: none; /* Hidden by default */
+            display: none;
             height: 100%;
             width: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
+            /* display: flex; */
             align-items: center;
             justify-content: center;
             position: absolute;
@@ -91,6 +91,10 @@
             color: #333;
             display: flex;
             flex-direction: column;
+        }
+        .popup>h1{
+            color: #000;
+            text-align: center;
         }
         .update-popup label, .update-popup input, .update-popup textarea, .update-popup select {
             margin: 5px 0;
@@ -171,6 +175,7 @@
 
     <div class="update-popup" id="update-popup">
         <div class="popup">
+            <h1>Edit Form</h1>
             <label for="name">Name:</label>
             <input type="text" class="name" name="user_name" required>
             
@@ -197,7 +202,7 @@
                     <option value="python_developer">Python Developer</option>
                     <option value="rails_developer">Rails Developer</option>
                     <option value="web_designer">Web Designer</option>
-                    <
+                    
                     <option value="WordPress_developer">WordPress Developer</option>
                 </optgroup>
                 <optgroup label="Mobile">
@@ -223,7 +228,7 @@
             </div>
 
             <div id="error"></div>
-            <button id="update" type="submit">Update</button>
+            <button id="update-btn" type="submit">Update</button>
         </div>
     </div>
 
